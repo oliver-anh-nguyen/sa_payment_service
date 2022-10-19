@@ -1,0 +1,8 @@
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 10s
+server:
+  shutdown: graceful
+---
+server:
+  port: 8080
