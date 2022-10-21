@@ -4,8 +4,8 @@ spring:
     consumer:
       value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
       properties:
-        "[spring.json.value.default.type]": "edu.miu.sapaymentservice.entity.Order"
-        "[spring.json.trusted.packages]": "edu.miu.sapaymentservice"
+        "[spring.json.value.default.type]": "edu.miu.creditservice.entity.Order"
+        "[spring.json.trusted.packages]": "edu.miu.creditservice"
     producer:
       value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"
       properties:
@@ -30,3 +30,6 @@ spring:
     bootstrap-servers: ${BOOTSTRAP_SERVERS}
 kafka:
   topic: ${PAYMENT_ORDER_EVENT}
+---
+server:
+  port: 8083
