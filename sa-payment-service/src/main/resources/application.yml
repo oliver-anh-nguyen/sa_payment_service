@@ -1,16 +1,14 @@
 spring:
   kafka:
-    bootstrap-servers: "localhost:9092"
     consumer:
       value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
       properties:
-        "[spring.json.value.default.type]": "edu.miu.sapaymentservice.entity.Order"
+        "[spring.json.value.default.type]": "edu.miu.sapaymentservice.entity.Payment"
         "[spring.json.trusted.packages]": "edu.miu.sapaymentservice"
     producer:
       value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"
       properties:
         "[spring.json.add.type.headers]": false
-
 ---
 spring:
   config:
@@ -18,9 +16,12 @@ spring:
       on-profile: dev
   kafka:
     bootstrap-servers: "localhost:9092"
-kafka:
-  topic: "PaymentOrderEvent"
 
+  main:
+    allow-bean-definition-overriding: true
+
+kafka:
+  topicPayment: "PAYMENT_TOPIC"
 ---
 spring:
   config:
@@ -29,4 +30,4 @@ spring:
   kafka:
     bootstrap-servers: ${BOOTSTRAP_SERVERS}
 kafka:
-  topic: ${PAYMENT_ORDER_EVENT}
+  topicPayment: ${PAYMENT_TOPIC}

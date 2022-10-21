@@ -1,27 +1,23 @@
 package edu.miu.sapaymentservice.controller;
 
-import edu.miu.sapaymentservice.entity.Order;
+import edu.miu.sapaymentservice.entity.Payment;
 import edu.miu.sapaymentservice.service.PaymentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/kafka")
+@RequestMapping("/topic")
 public class PaymentController {
+
+    @Value("${kafka.topicPayment}")
+    private String topicPayment;
 
     private final PaymentService paymentService;
 
-    @PostMapping("/order")
-    public void send(@RequestBody Order order) {
-        paymentService.publish("ReservationOrderEvent", order);
-    }
-
     @PostMapping("/payment")
-    public void sendInfoPayment(@RequestBody Order order) {
-        paymentService.publish("PaymentOrderEvent", order);
+    public void send(@RequestBody Payment payment) {
+        paymentService.publish(topicPayment, payment);
     }
 }

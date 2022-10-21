@@ -1,9 +1,9 @@
 package edu.miu.creditservice.service;
 
-import edu.miu.creditservice.entity.Order;
+import edu.miu.creditservice.entity.Credit;
 
 public interface CreditService {
-    void publish(String topic, Order message);
+    void publish(String topic, Credit message);
 
-    void listenPayment(Order message);
+    void listenPayment(Credit message);
 }

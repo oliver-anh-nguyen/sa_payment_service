@@ -1,37 +1,43 @@
 package edu.miu.creditservice.service;
 
-import edu.miu.creditservice.entity.Order;
+import edu.miu.creditservice.entity.Credit;
+import edu.miu.creditservice.repository.CreditRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class CreditServiceImpl implements CreditService {
 
-    private final KafkaTemplate<String, Order> kafkaTemplate;
+    private final CreditRepository creditRepository;
+
+    private final KafkaTemplate<String, Credit> kafkaTemplate;
 
     @Override
-    public void publish(String topic, Order message) {
+    public void publish(String topic, Credit message) {
         kafkaTemplate.send(topic, message);
     }
 
     @Override
-    @KafkaListener(id = "paymentId", topics = "PaymentOrderEvent")
-    public void listenPayment(Order message) {
-        String type = message.getPaymentType();
-        if (type.equals("CREDIT")) {
-            if (message.getPaymentMap() == null) {
-                // get info payment from Account
-            } else {
-                System.out.println("CREDIT INFO");
-                System.out.println("CARD number: " + message.getPaymentMap().get("cardNumber"));
-                System.out.println("CARD expires: " + message.getPaymentMap().get("cardExpires"));
-                System.out.println("CARD security code: " + message.getPaymentMap().get("cardSecurityCode"));
-            }
+    @KafkaListener(id = "paymentId", topics = "${kafka.topicCredit}")
+    public void listenPayment(Credit credit) {
+        System.out.println("Received info from credit topic: " + credit);
+        String type = credit.getPaymentType();
+        System.out.println(type);
+        if (credit != null) {
+            save(credit);
         }
+    }
+    @Transactional
+    public void save(Credit credit) {
+        credit.setId(UUID.randomUUID());
+        creditRepository.save(credit);
     }
 }

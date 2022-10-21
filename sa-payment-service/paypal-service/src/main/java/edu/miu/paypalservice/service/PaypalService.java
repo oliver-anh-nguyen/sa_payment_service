@@ -1,9 +1,9 @@
 package edu.miu.paypalservice.service;
 
-import edu.miu.paypalservice.entity.Order;
+import edu.miu.paypalservice.entity.Paypal;
 
 public interface PaypalService {
-    void publish(String topic, Order message);
+    void publish(String topic, Paypal message);
 
-    void listenPayment(Order message);
+    void listenPayment(Paypal message);
 }

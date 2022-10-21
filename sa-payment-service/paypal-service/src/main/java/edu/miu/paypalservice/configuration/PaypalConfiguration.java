@@ -9,15 +9,7 @@ import org.springframework.kafka.config.TopicBuilder;
 public class PaypalConfiguration {
     @Bean
     public NewTopic topicPaypal() {
-        return TopicBuilder.name("PaypalOrderEvent")
-                .partitions(10)
-                .replicas(1)
-                .build();
-    }
-
-    @Bean
-    public NewTopic topicPayment() {
-        return TopicBuilder.name("PaymentOrderEvent")
+        return TopicBuilder.name("PAYPAL_TOPIC")
                 .partitions(10)
                 .replicas(1)
                 .build();

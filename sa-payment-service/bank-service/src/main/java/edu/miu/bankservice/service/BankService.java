@@ -1,9 +1,9 @@
 package edu.miu.bankservice.service;
 
-import edu.miu.bankservice.entity.Order;
+import edu.miu.bankservice.entity.Bank;
 
 public interface BankService {
-    void publish(String topic, Order message);
+    void publish(String topic, Bank message);
 
-    void listenPayment(Order message);
+    void listenPayment(Bank message);
 }

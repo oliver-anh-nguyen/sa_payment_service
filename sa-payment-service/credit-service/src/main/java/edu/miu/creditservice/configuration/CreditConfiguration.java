@@ -8,16 +8,8 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class CreditConfiguration {
     @Bean
-    public NewTopic topicPaypal() {
-        return TopicBuilder.name("CreditOrderEvent")
-                .partitions(10)
-                .replicas(1)
-                .build();
-    }
-
-    @Bean
-    public NewTopic topicPayment() {
-        return TopicBuilder.name("PaymentOrderEvent")
+    public NewTopic topicCredit() {
+        return TopicBuilder.name("CREDIT_TOPIC")
                 .partitions(10)
                 .replicas(1)
                 .build();
