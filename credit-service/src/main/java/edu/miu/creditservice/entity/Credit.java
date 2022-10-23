@@ -25,4 +25,6 @@ public class Credit {
     private double total;
     @Column
     private int night;
+    @Column
+    private UUID propertyId;
 }

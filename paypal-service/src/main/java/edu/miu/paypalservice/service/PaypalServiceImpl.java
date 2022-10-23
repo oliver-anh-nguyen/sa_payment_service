@@ -29,8 +29,6 @@ public class PaypalServiceImpl implements PaypalService {
     @KafkaListener(id = "paymentId", topics = "${kafka.topicPaypal}")
     public void listenPayment(Paypal paypal) {
         System.out.println("Received info from paypal topic: " + paypal);
-        String type = paypal.getPaymentType();
-        System.out.println(type);
         if (paypal != null) {
             save(paypal);
         }
@@ -39,5 +37,10 @@ public class PaypalServiceImpl implements PaypalService {
     public void save(Paypal paypal) {
         paypal.setId(UUID.randomUUID());
         paypalRepository.save(paypal);
+    }
+
+    public Paypal getById(UUID id) {
+        return paypalRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cannot find transaction paypal with id: " + id));
     }
 }

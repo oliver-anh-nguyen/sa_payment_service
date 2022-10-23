@@ -29,8 +29,6 @@ public class BankServiceImpl implements BankService {
     @KafkaListener(id = "paymentId", topics = "${kafka.topicBank}")
     public void listenPayment(Bank bank) {
         System.out.println("Received info from bank topic: " + bank);
-        String type = bank.getPaymentType();
-        System.out.println(type);
         if (bank != null) {
             save(bank);
         }
@@ -39,6 +37,11 @@ public class BankServiceImpl implements BankService {
     public void save(Bank bank) {
         bank.setId(UUID.randomUUID());
         bankRepository.save(bank);
+    }
+
+    public Bank getById(UUID id) {
+        return bankRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cannot find transaction bank with id: " + id));
     }
 }
 

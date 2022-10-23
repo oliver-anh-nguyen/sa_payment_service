@@ -29,8 +29,6 @@ public class CreditServiceImpl implements CreditService {
     @KafkaListener(id = "paymentId", topics = "${kafka.topicCredit}")
     public void listenPayment(Credit credit) {
         System.out.println("Received info from credit topic: " + credit);
-        String type = credit.getPaymentType();
-        System.out.println(type);
         if (credit != null) {
             save(credit);
         }
@@ -39,5 +37,10 @@ public class CreditServiceImpl implements CreditService {
     public void save(Credit credit) {
         credit.setId(UUID.randomUUID());
         creditRepository.save(credit);
+    }
+
+    public Credit getById(UUID id) {
+        return creditRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cannot find transaction credit with id: " + id));
     }
 }

@@ -24,4 +24,6 @@ public class Paypal {
     private double total;
     @Column
     private int night;
+    @Column
+    private UUID propertyId;
 }
