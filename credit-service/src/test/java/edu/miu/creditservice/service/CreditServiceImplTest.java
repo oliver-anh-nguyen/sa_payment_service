@@ -24,17 +24,17 @@ class CreditServiceImplTest {
     private CreditRepository creditRepository;
 
     @Test
-    void should_save_transaction() {
-        UUID cerditId = UUID.randomUUID();
+    void should_save_credit_transaction() {
+        UUID creditId = UUID.randomUUID();
         UUID propertyId = UUID.randomUUID();
-        Credit paypal = new Credit(cerditId, "CREDIT", "anh@gmail.com", 500.0, 2, propertyId);
+        Credit paypal = new Credit(creditId, "CREDIT", "anh@gmail.com", 500.0, 2, propertyId);
         creditService.save(paypal);
         assertThat(paypal.getTotal()).isEqualTo(500);
         assertThat(paypal.getId()).isNotNull();
     }
 
     @Test
-    void should_return_paypal_transaction() {
+    void should_return_credit_transaction() {
         UUID transactionId = UUID.randomUUID();
         UUID propertyId = UUID.randomUUID();
         Credit expectedReservation = new Credit(transactionId, "CREDIT", "anh@gmail.com", 500.0, 2, propertyId);
@@ -44,7 +44,7 @@ class CreditServiceImplTest {
     }
 
     @Test
-    void should_throw_exception() {
+    void should_throw_credit_exception() {
         UUID transactionId = UUID.randomUUID();
         when(creditRepository.findById(transactionId)).thenReturn(Optional.ofNullable(null));
         assertThatThrownBy(() -> creditService.getById(transactionId))

@@ -24,7 +24,7 @@ class PaypalServiceImplTest {
     private PaypalRepository paypalRepository;
 
     @Test
-    void should_save_transaction() {
+    void should_save_paypal_transaction() {
         UUID paypalId = UUID.randomUUID();
         UUID propertyId = UUID.randomUUID();
         Paypal paypal = new Paypal(paypalId, "PAYPAL", "anh@gmail.com", 500.0, 2, propertyId);
@@ -44,7 +44,7 @@ class PaypalServiceImplTest {
     }
 
     @Test
-    void should_throw_exception() {
+    void should_throw_paypal_exception() {
         UUID transactionId = UUID.randomUUID();
         when(paypalRepository.findById(transactionId)).thenReturn(Optional.ofNullable(null));
         assertThatThrownBy(() -> paypalService.getById(transactionId))

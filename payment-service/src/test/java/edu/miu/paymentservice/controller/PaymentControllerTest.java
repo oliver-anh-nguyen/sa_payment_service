@@ -30,7 +30,7 @@ class PaymentControllerTest {
     private PaymentService paymentService;
 
     @Test
-    void test_receive_info_payment() throws Exception {
+    void should_receive_info_payment() throws Exception {
         UUID propertyId = UUID.randomUUID();
         System.out.println(propertyId);
         Payment mockData = new Payment("BANK", "anh@gmail.com", 500, 2, propertyId);

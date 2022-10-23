@@ -24,7 +24,7 @@ class BankServiceImplTest {
     private BankRepository bankRepository;
 
     @Test
-    void should_save_transaction() {
+    void should_save_bank_transaction() {
         UUID bankId = UUID.randomUUID();
         UUID propertyId = UUID.randomUUID();
         Bank paypal = new Bank(bankId, "BANK", "anh@gmail.com", 500.0, 2, propertyId);
@@ -34,7 +34,7 @@ class BankServiceImplTest {
     }
 
     @Test
-    void should_return_paypal_transaction() {
+    void should_return_bank_transaction() {
         UUID transactionId = UUID.randomUUID();
         UUID propertyId = UUID.randomUUID();
         Bank expectedReservation = new Bank(transactionId, "BANK", "anh@gmail.com", 500.0, 2, propertyId);
@@ -44,7 +44,7 @@ class BankServiceImplTest {
     }
 
     @Test
-    void should_throw_exception() {
+    void should_throw_bank_exception() {
         UUID transactionId = UUID.randomUUID();
         when(bankRepository.findById(transactionId)).thenReturn(Optional.ofNullable(null));
         assertThatThrownBy(() -> bankService.getById(transactionId))
